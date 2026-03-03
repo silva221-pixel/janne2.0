@@ -146,9 +146,9 @@ confirmarFatia.addEventListener("click", () => {
     const item = {
         tipo: "fatia",
         nome: "Fatia Gourmet",
-        sabor,
+        sabor: sabor,
         preco: 12
-    };;
+    };
 
     itensCarrinho.push(item);
     atualizarCarrinho();
