@@ -9,7 +9,6 @@ const formatarMoeda = (valor) => {
   });
 };
 
-
 /* =========================
    FILTRO DE CATEGORIA
 ========================= */
@@ -22,23 +21,19 @@ botoesFiltro.forEach(botao => {
 
     const categoria = botao.dataset.categoria;
 
-    // remover ativo
     botoesFiltro.forEach(btn => btn.classList.remove("active"));
     botao.classList.add("active");
 
     produtos.forEach(produto => {
-
       if (categoria === "todos" || produto.dataset.categoria === categoria) {
         produto.style.display = "block";
       } else {
         produto.style.display = "none";
       }
-
     });
 
   });
 });
-
 
 /* =========================
    CARRINHO
@@ -63,7 +58,6 @@ function fecharCarrinho() {
 }
 
 overlay.addEventListener("click", fecharCarrinho);
-
 
 /* =========================
    ATUALIZAR CARRINHO
@@ -104,9 +98,8 @@ function atualizarCarrinho() {
   localStorage.setItem("carrinho", JSON.stringify(carrinho));
 }
 
-
 /* =========================
-   ADICIONAR AO CARRINHO
+   ADICIONAR
 ========================= */
 
 function adicionarAoCarrinho(nome, preco) {
@@ -127,9 +120,8 @@ function adicionarAoCarrinho(nome, preco) {
   abrirCarrinho();
 }
 
-
 /* =========================
-   CONTROLE DE QUANTIDADE
+   CONTROLE QTD
 ========================= */
 
 function aumentarQuantidade(index) {
@@ -138,7 +130,6 @@ function aumentarQuantidade(index) {
 }
 
 function diminuirQuantidade(index) {
-
   carrinho[index].quantidade--;
 
   if (carrinho[index].quantidade <= 0) {
@@ -148,9 +139,8 @@ function diminuirQuantidade(index) {
   atualizarCarrinho();
 }
 
-
 /* =========================
-   BOTÕES ADICIONAR
+   BOTÃO ADICIONAR
 ========================= */
 
 document.querySelectorAll(".btn-add").forEach(botao => {
@@ -184,9 +174,8 @@ document.querySelectorAll(".btn-add").forEach(botao => {
 
 });
 
-
 /* =========================
-   FINALIZAR WHATSAPP
+   WHATSAPP
 ========================= */
 
 document.querySelector(".btn-finalizar").addEventListener("click", () => {
@@ -207,17 +196,13 @@ document.querySelector(".btn-finalizar").addEventListener("click", () => {
   mensagem += `%0ATotal: ${formatarMoeda(total)}%0A`;
   mensagem += "%0AObrigado! 😊";
 
-  const numero = "5561991199563"; // coloque o número real aqui
-  window.open(`https://wa.me/${numero}?text=${mensagem}`, "_blank");
+  window.open(`https://wa.me/5561991199563?text=${mensagem}`, "_blank");
 
 });
-
 
 /* =========================
    INICIAR
 ========================= */
 
-// Inicia mostrando todos
 document.querySelector('[data-categoria="todos"]').click();
-
 atualizarCarrinho();
