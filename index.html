@@ -10,7 +10,8 @@
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500;600&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet">
 
     <!-- CSS -->
@@ -45,8 +46,7 @@
                 <h2>Arte em camadas. Sabor que transforma momentos.</h2>
                 <p>Confeitaria artesanal sob encomenda em Goiânia.</p>
 
-                <a href="https://wa.me/5561991199563" target="_blank" rel="noopener"
-                    class="btn-primary">
+                <a href="https://wa.me/5561991199563" target="_blank" rel="noopener" class="btn-primary">
                     Fazer pedido no WhatsApp
                 </a>
 
@@ -67,118 +67,147 @@
             </p>
         </section>
 
-<!-- ================= CARDÁPIO ================= -->
-<section id="cardapio" class="cardapio">
-    <div class="container">
+        <!-- ================= CARDÁPIO ================= -->
+        <section id="cardapio" class="cardapio">
+            <div class="container">
 
-        <h2>Nosso Cardápio</h2>
+                <h2>Nosso Cardápio</h2>
 
-        <!-- FILTROS -->
-        <div class="filtros">
-            <button class="filtro-btn active" data-categoria="todos">Todos</button>
-            <button class="filtro-btn" data-categoria="bolos">Bolos</button>
-            <button class="filtro-btn" data-categoria="tortas">Tortas</button>
-            <button class="filtro-btn" data-categoria="doces">Doces</button>
+                <!-- FILTROS -->
+                <div class="filtros">
+                    <button class="filtro-btn active" data-categoria="todos">Todos</button>
+                    <button class="filtro-btn" data-categoria="bolos">Bolos</button>
+                    <button class="filtro-btn" data-categoria="tortas">Tortas</button>
+                    <button class="filtro-btn" data-categoria="doces">Doces</button>
+                </div>
+
+                <!-- GRID PRODUTOS -->
+                <div class="grid-produtos">
+
+                    <!-- BOLO CHOCOLATE -->
+                    <article class="produto-card" data-categoria="bolos">
+                        <img src="img/chocolate.jpg" alt="Bolo de chocolate artesanal com cobertura cremosa"
+                            loading="lazy">
+
+                        <div class="produto-info">
+                            <h4>Bolo de Chocolate</h4>
+                            <p>Massa intensa com cobertura cremosa.</p>
+
+                            <div class="opcoes-tamanho">
+                                <label>Tamanho:</label>
+                                <select class="select-tamanho">
+                                    <option value="1" data-preco="55">
+                                        1kg - R$ 55,00
+                                    </option>
+                                    <option value="2" data-preco="110">
+                                        2kg - R$ 110,00
+                                    </option>
+                                    <option value="3" data-preco="165">
+                                        3kg - R$ 165,00
+                                    </option>
+                                </select>
+                            </div>
+
+                            <button class="btn-add">
+                                Adicionar
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- RED VELVET -->
+                    <article class="produto-card" data-categoria="bolos">
+                        <img src="img/red.jpg" alt="Bolo Red Velvet com creme delicado" loading="lazy">
+
+                        <div class="produto-info">
+                            <h4>Red Velvet</h4>
+                            <p>Massa aveludada com creme delicado.</p>
+
+                            <div class="opcoes-tamanho">
+                                <label>Tamanho:</label>
+                                <select class="select-tamanho">
+                                    <option value="1" data-preco="130">
+                                        1kg - R$ 130,00
+                                    </option>
+                                    <option value="2" data-preco="240">
+                                        2kg - R$ 240,00
+                                    </option>
+                                    <option value="3" data-preco="350">
+                                        3kg - R$ 350,00
+                                    </option>
+                                </select>
+                            </div>
+
+                            <button class="btn-add">
+                                Adicionar
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- TORTA LIMÃO -->
+                    <article class="produto-card" data-categoria="tortas">
+                        <img src="img/torta.jpg" alt="Torta de limão com base crocante e creme cítrico" loading="lazy">
+                        <div class="produto-info">
+                            <h4>Torta de Limão</h4>
+                            <p>Base crocante com creme cítrico.</p>
+                            <div class="preco">R$ 85,00</div>
+                            <button class="btn-add">
+                                Adicionar
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- BRIGADEIRO -->
+                    <article class="produto-card" data-categoria="doces">
+                        <img src="img/brigadeiro.jpg" alt="Brigadeiro gourmet com chocolate belga" loading="lazy">
+                        <div class="produto-info">
+                            <h4>Brigadeiro Gourmet</h4>
+                            <p>Chocolate belga 70% cacau.</p>
+                            <div class="preco">R$ 6,00</div>
+                            <button class="btn-add">
+                                Adicionar
+                            </button>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= MODAL BOLO ================= -->
+        <div class="modal-overlay" id="modalOverlay"></div>
+
+        <div class="modal-bolo" id="modalBolo">
+            <h3>Monte seu Bolo</h3>
+
+            <label>Tamanho:</label>
+            <select id="modalTamanho">
+                <option value="" disabled selected>Escolha o tamanho</option>
+                <option value="1kg" data-preco="55">1kg - R$55,00</option>
+                <option value="2kg" data-preco="110">2kg - R$110,00</option>
+                <option value="3kg" data-preco="165">3kg - R$165,00</option>
+            </select>
+
+            <label>Massa:</label>
+            <select id="modalMassa">
+                <option value="" disabled selected>Escolha a massa</option>
+                <option>Branca (Baunilha)</option>
+                <option>Chocolate</option>
+                <option>Red Velvet</option>
+            </select>
+
+            <label>Recheio:</label>
+            <select id="modalRecheio">
+                <option value="" disabled selected>Escolha o recheio</option>
+                <option>Abacaxi com coco</option>
+                <option>Prestígio</option>
+                <option>Ninho com Nutella</option>
+                <option>Chocolate com morango</option>
+                <option>Brigadeiro</option>
+            </select>
+
+            <button id="confirmarBolo" class="btn-add">Confirmar Pedido</button>
+            <button onclick="fecharModal()" class="btn-cancelar">Cancelar</button>
         </div>
-
-        <!-- GRID PRODUTOS -->
-        <div class="grid-produtos">
-
-            <!-- BOLO CHOCOLATE -->
-            <article class="produto-card" data-categoria="bolos">
-                <img src="img/chocolate.jpg"
-                    alt="Bolo de chocolate artesanal com cobertura cremosa"
-                    loading="lazy">
-
-                <div class="produto-info">
-                    <h4>Bolo de Chocolate</h4>
-                    <p>Massa intensa com cobertura cremosa.</p>
-
-                    <div class="opcoes-tamanho">
-                        <label>Tamanho:</label>
-                        <select class="select-tamanho">
-                            <option value="1" data-preco="120">
-                                1kg - R$ 120,00
-                            </option>
-                            <option value="2" data-preco="220">
-                                2kg - R$ 220,00
-                            </option>
-                            <option value="3" data-preco="320">
-                                3kg - R$ 320,00
-                            </option>
-                        </select>
-                    </div>
-
-                    <button class="btn-add">
-                        Adicionar
-                    </button>
-                </div>
-            </article>
-
-            <!-- RED VELVET -->
-            <article class="produto-card" data-categoria="bolos">
-                <img src="img/red.jpg"
-                    alt="Bolo Red Velvet com creme delicado"
-                    loading="lazy">
-
-                <div class="produto-info">
-                    <h4>Red Velvet</h4>
-                    <p>Massa aveludada com creme delicado.</p>
-
-                    <div class="opcoes-tamanho">
-                        <label>Tamanho:</label>
-                        <select class="select-tamanho">
-                            <option value="1" data-preco="130">
-                                1kg - R$ 130,00
-                            </option>
-                            <option value="2" data-preco="240">
-                                2kg - R$ 240,00
-                            </option>
-                            <option value="3" data-preco="350">
-                                3kg - R$ 350,00
-                            </option>
-                        </select>
-                    </div>
-
-                    <button class="btn-add">
-                        Adicionar
-                    </button>
-                </div>
-            </article>
-
-            <!-- TORTA LIMÃO -->
-            <article class="produto-card" data-categoria="tortas">
-                <img src="img/torta.jpg"
-                    alt="Torta de limão com base crocante e creme cítrico"
-                    loading="lazy">
-                <div class="produto-info">
-                    <h4>Torta de Limão</h4>
-                    <p>Base crocante com creme cítrico.</p>
-                    <div class="preco">R$ 85,00</div>
-                    <button class="btn-add">
-                        Adicionar
-                    </button>
-                </div>
-            </article>
-
-            <!-- BRIGADEIRO -->
-            <article class="produto-card" data-categoria="doces">
-                <img src="img/brigadeiro.jpg"
-                    alt="Brigadeiro gourmet com chocolate belga"
-                    loading="lazy">
-                <div class="produto-info">
-                    <h4>Brigadeiro Gourmet</h4>
-                    <p>Chocolate belga 70% cacau.</p>
-                    <div class="preco">R$ 6,00</div>
-                    <button class="btn-add">
-                        Adicionar
-                    </button>
-                </div>
-            </article>
-
-        </div>
-    </div>
-</section>
 
         <!-- ================= DEPOIMENTOS ================= -->
         <section id="depoimentos" class="depoimentos">
@@ -203,10 +232,7 @@
         <section class="cta-final">
             <div class="container">
                 <h2>Pronta para adoçar seu momento?</h2>
-                <a href="https://wa.me/5561991199563"
-                    target="_blank"
-                    rel="noopener"
-                    class="btn-primary">
+                <a href="https://wa.me/5561991199563" target="_blank" rel="noopener" class="btn-primary">
                     Fazer pedido agora
                 </a>
             </div>
@@ -251,4 +277,5 @@
     <script src="script.js"></script>
 
 </body>
+
 </html>

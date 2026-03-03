@@ -206,3 +206,77 @@ document.querySelector(".btn-finalizar").addEventListener("click", () => {
 
 document.querySelector('[data-categoria="todos"]').click();
 atualizarCarrinho();
+
+/* ================= MODAL BOLO ================= */
+
+let boloSelecionado = "";
+
+const modal = document.getElementById("modalBolo");
+const modalOverlay = document.getElementById("modalOverlay");
+
+function abrirModal(nomeBolo) {
+  boloSelecionado = nomeBolo;
+  modal.classList.add("ativo");
+  modalOverlay.classList.add("ativo");
+}
+
+function fecharModal() {
+  modal.classList.remove("ativo");
+  modalOverlay.classList.remove("ativo");
+}
+
+modalOverlay.addEventListener("click", fecharModal);
+
+/* ALTERAR BOTÃO ADICIONAR PARA BOLOS */
+
+document.querySelectorAll(".produto-card").forEach(card => {
+
+  const categoria = card.dataset.categoria;
+  const botao = card.querySelector(".btn-add");
+
+  botao.addEventListener("click", () => {
+
+    const nome = card.querySelector("h4").textContent;
+
+    if (categoria === "bolos") {
+      abrirModal(nome);
+    } else {
+      const precoTexto = card.querySelector(".preco").textContent;
+      const preco = parseFloat(
+        precoTexto.replace("R$", "").replace(",", ".").trim()
+      );
+      adicionarAoCarrinho(nome, preco);
+    }
+
+  });
+
+});
+
+/* CONFIRMAR BOLO */
+
+document.getElementById("confirmarBolo").addEventListener("click", () => {
+
+  const tamanhoSelect = document.getElementById("modalTamanho");
+  const massa = document.getElementById("modalMassa").value;
+  const recheio = document.getElementById("modalRecheio").value;
+
+  if (!tamanhoSelect.value || !massa || !recheio) {
+    alert("Escolha todas as opções.");
+    return;
+  }
+
+  const preco = parseFloat(
+    tamanhoSelect.options[tamanhoSelect.selectedIndex].dataset.preco
+  );
+
+  const nomeFinal = `
+${boloSelecionado}
+- ${tamanhoSelect.value}
+- Massa: ${massa}
+- Recheio: ${recheio}
+`;
+
+  adicionarAoCarrinho(nomeFinal, preco);
+  fecharModal();
+
+});
