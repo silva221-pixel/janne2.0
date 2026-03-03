@@ -20,6 +20,11 @@ const totalCarrinho = document.getElementById("total-carrinho");
 const contadorCarrinho = document.getElementById("contador-carrinho");
 const btnFinalizar = document.querySelector(".btn-finalizar");
 
+const modalFatia = document.getElementById("modalFatia");
+const modalFatiaOverlay = document.getElementById("modalFatiaOverlay");
+const selectSaborFatia = document.getElementById("selectSaborFatia");
+const confirmarFatia = document.getElementById("confirmarFatia");
+
 let itensCarrinho = [];
 
 // ============================
@@ -62,6 +67,17 @@ function fecharModal() {
     selectRecheio.value = "";
 }
 
+function abrirModalFatia() {
+    modalFatia.classList.add("ativo");
+    modalFatiaOverlay.classList.add("ativo");
+}
+
+function fecharModalFatia() {
+    modalFatia.classList.remove("ativo");
+    modalFatiaOverlay.classList.remove("ativo");
+    selectSaborFatia.value = "";
+}
+
 // ============================
 // ADICIONAR BOLO PERSONALIZADO
 // ============================
@@ -92,6 +108,26 @@ confirmarBolo.addEventListener("click", () => {
     itensCarrinho.push(item);
     atualizarCarrinho();
     fecharModal();
+});
+
+confirmarFatia.addEventListener("click", () => {
+
+    const sabor = selectSaborFatia.value;
+
+    if (!sabor) {
+        alert("Escolha o sabor da fatia.");
+        return;
+    }
+
+    const item = {
+        nome: "Fatia Gourmet",
+        sabor: sabor,
+        preco: 12
+    };
+
+    itensCarrinho.push(item);
+    atualizarCarrinho();
+    fecharModalFatia();
 });
 
 // ============================
@@ -128,8 +164,12 @@ function atualizarCarrinho() {
         div.innerHTML = `
             <h4>${item.nome}</h4>
             ${item.tamanho ? `
-                <small>${item.tamanho} • ${item.massa} • ${item.recheio}</small>
-            ` : ""}
+    <small>${item.tamanho} • ${item.massa} • ${item.recheio}</small>
+` : ""}
+
+${item.sabor ? `
+    <small>Sabor: ${item.sabor}</small>
+` : ""}
             <div class="item-footer">
                 <strong>R$ ${item.preco.toFixed(2)}</strong>
                 <button class="remover-item" onclick="removerItem(${index})">
@@ -190,6 +230,10 @@ btnFinalizar.addEventListener("click", () => {
             mensagem += `  Tamanho: ${item.tamanho}%0A`;
             mensagem += `  Massa: ${item.massa}%0A`;
             mensagem += `  Recheio: ${item.recheio}%0A`;
+        }
+
+        if (item.sabor) {
+            mensagem += `  Sabor: ${item.sabor}%0A`;
         }
 
         mensagem += `  Valor: R$ ${item.preco.toFixed(2)}%0A%0A`;

@@ -127,9 +127,7 @@
                             <h4>Fatia Gourmet</h4>
                             <p>220g a 250g • Diversos sabores</p>
                             <div class="preco">R$ 12,00</div>
-                            <button class="btn-add" onclick="adicionarItem('Fatia Gourmet', 12)">
-                                Adicionar
-                            </button>
+                            <button class="btn-add" onclick="abrirModalFatia()">
                         </div>
                     </article>
 
@@ -246,6 +244,37 @@
             </button>
         </div>
     </div>
+
+    <!-- ================= MODAL FATIA ================= -->
+<div class="modal-overlay" id="modalFatiaOverlay" onclick="fecharModalFatia()"></div>
+
+<div class="modal-bolo" id="modalFatia">
+    <div class="modal-header">
+        <h3>Escolha o sabor da fatia</h3>
+        <button class="fechar-btn" onclick="fecharModalFatia()">✕</button>
+    </div>
+
+    <div class="modal-body">
+
+        <label for="selectSaborFatia">Sabor:</label>
+        <select id="selectSaborFatia">
+            <option value="" disabled selected>Escolha o sabor</option>
+            <option>Abacaxi com coco</option>
+            <option>Prestígio</option>
+            <option>Ninho com Nutella</option>
+            <option>Chocolate com morango</option>
+            <option>Brigadeiro</option>
+            <option>Red Velvet</option>
+        </select>
+
+    </div>
+
+    <div class="modal-footer">
+        <button id="confirmarFatia" class="btn-primary">
+            Adicionar ao Carrinho
+        </button>
+    </div>
+</div>
 
     <script src="script.js"></script>
 
