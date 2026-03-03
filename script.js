@@ -7,18 +7,10 @@ const produtos = document.querySelectorAll(".produto-card");
 
 const modal = document.getElementById("modalBolo");
 const modalOverlay = document.getElementById("modalOverlay");
-
 const confirmarBolo = document.getElementById("confirmarBolo");
 const selectTamanho = document.getElementById("modalTamanho");
 const selectMassa = document.getElementById("modalMassa");
 const selectRecheio = document.getElementById("modalRecheio");
-
-const carrinho = document.querySelector(".carrinho-lateral");
-const overlayCarrinho = document.querySelector(".carrinho-overlay");
-const carrinhoItens = document.querySelector(".carrinho-itens");
-const totalCarrinho = document.getElementById("total-carrinho");
-const contadorCarrinho = document.getElementById("contador-carrinho");
-const btnFinalizar = document.querySelector(".btn-finalizar");
 
 const modalFatia = document.getElementById("modalFatia");
 const modalFatiaOverlay = document.getElementById("modalFatiaOverlay");
@@ -27,12 +19,17 @@ const confirmarFatia = document.getElementById("confirmarFatia");
 
 const modalTorta = document.getElementById("modalTorta");
 const modalTortaOverlay = document.getElementById("modalTortaOverlay");
-
 const selectTamanhoTorta = document.getElementById("selectTamanhoTorta");
 const selectBaseTorta = document.getElementById("selectBaseTorta");
 const selectRecheioTorta = document.getElementById("selectRecheioTorta");
-
 const confirmarTorta = document.getElementById("confirmarTorta");
+
+const carrinho = document.querySelector(".carrinho-lateral");
+const overlayCarrinho = document.querySelector(".carrinho-overlay");
+const carrinhoItens = document.querySelector(".carrinho-itens");
+const totalCarrinho = document.getElementById("total-carrinho");
+const contadorCarrinho = document.getElementById("contador-carrinho");
+const btnFinalizar = document.querySelector(".btn-finalizar");
 
 let itensCarrinho = [];
 
@@ -41,212 +38,197 @@ let itensCarrinho = [];
 // ============================
 
 botoesFiltro.forEach(botao => {
-    botao.addEventListener("click", () => {
+  botao.addEventListener("click", () => {
+    botoesFiltro.forEach(btn => btn.classList.remove("active"));
+    botao.classList.add("active");
 
-        botoesFiltro.forEach(btn => btn.classList.remove("active"));
-        botao.classList.add("active");
+    const categoria = botao.dataset.categoria;
 
-        const categoria = botao.dataset.categoria;
-
-        produtos.forEach(produto => {
-            if (categoria === "todos" || produto.dataset.categoria === categoria) {
-                produto.style.display = "block";
-            } else {
-                produto.style.display = "none";
-            }
-        });
+    produtos.forEach(produto => {
+      if (categoria === "todos" || produto.dataset.categoria === categoria) {
+        produto.style.display = "block";
+      } else {
+        produto.style.display = "none";
+      }
     });
+  });
 });
 
 // ============================
-// MODAL
+// MODAIS
 // ============================
 
 function abrirModal() {
-    modal.classList.add("ativo");
-    modalOverlay.classList.add("ativo");
+  modal.classList.add("ativo");
+  modalOverlay.classList.add("ativo");
 }
 
 function fecharModal() {
-    modal.classList.remove("ativo");
-    modalOverlay.classList.remove("ativo");
-
-    selectTamanho.value = "";
-    selectMassa.value = "";
-    selectRecheio.value = "";
+  modal.classList.remove("ativo");
+  modalOverlay.classList.remove("ativo");
+  selectTamanho.value = "";
+  selectMassa.value = "";
+  selectRecheio.value = "";
 }
 
 function abrirModalFatia() {
-    modalFatia.classList.add("ativo");
-    modalFatiaOverlay.classList.add("ativo");
+  modalFatia.classList.add("ativo");
+  modalFatiaOverlay.classList.add("ativo");
 }
 
 function fecharModalFatia() {
-    modalFatia.classList.remove("ativo");
-    modalFatiaOverlay.classList.remove("ativo");
-    selectSaborFatia.value = "";
+  modalFatia.classList.remove("ativo");
+  modalFatiaOverlay.classList.remove("ativo");
+  selectSaborFatia.value = "";
 }
 
 function abrirModalTorta() {
-    modalTorta.classList.add("ativo");
-    modalTortaOverlay.classList.add("ativo");
+  modalTorta.classList.add("ativo");
+  modalTortaOverlay.classList.add("ativo");
 }
 
 function fecharModalTorta() {
-    modalTorta.classList.remove("ativo");
-    modalTortaOverlay.classList.remove("ativo");
-
-    selectTamanhoTorta.value = "";
-    selectBaseTorta.value = "";
-    selectRecheioTorta.value = "";
+  modalTorta.classList.remove("ativo");
+  modalTortaOverlay.classList.remove("ativo");
+  selectTamanhoTorta.value = "";
+  selectBaseTorta.value = "";
+  selectRecheioTorta.value = "";
 }
 
 // ============================
-// ADICIONAR BOLO PERSONALIZADO
+// ADICIONAR BOLO
 // ============================
 
 confirmarBolo.addEventListener("click", () => {
+  const tamanho = selectTamanho.value;
+  const massa = selectMassa.value;
+  const recheio = selectRecheio.value;
 
-    const tamanho = selectTamanho.value;
-    const massa = selectMassa.value;
-    const recheio = selectRecheio.value;
+  if (!tamanho || !massa || !recheio) {
+    alert("Escolha tamanho, massa e recheio.");
+    return;
+  }
 
-    if (!tamanho || !massa || !recheio) {
-        alert("Escolha tamanho, massa e recheio.");
-        return;
-    }
+  const preco = parseFloat(
+    selectTamanho.options[selectTamanho.selectedIndex].dataset.preco
+  );
 
-    const preco = parseFloat(
-        selectTamanho.options[selectTamanho.selectedIndex].dataset.preco
-    );
+  const item = {
+    tipo: "bolo",
+    nome: "Bolo Personalizado",
+    tamanho,
+    massa,
+    recheio,
+    preco
+  };
 
-    const item = {
-        tipo: "bolo",
-        nome: "Bolo Personalizado",
-        tamanho,
-        massa,
-        recheio,
-        preco
-    };
-
-    itensCarrinho.push(item);
-    atualizarCarrinho();
-    fecharModal();
+  itensCarrinho.push(item);
+  atualizarCarrinho();
+  fecharModal();
 });
+
+// ============================
+// ADICIONAR FATIA
+// ============================
 
 confirmarFatia.addEventListener("click", () => {
+  const sabor = selectSaborFatia.value;
 
-    const sabor = selectSaborFatia.value;
+  if (!sabor) {
+    alert("Escolha o sabor da fatia.");
+    return;
+  }
 
-    if (!sabor) {
-        alert("Escolha o sabor da fatia.");
-        return;
-    }
+  const item = {
+    tipo: "fatia",
+    nome: "Fatia Gourmet",
+    sabor,
+    preco: 12
+  };
 
-    const item = {
-        tipo: "fatia",
-        nome: "Fatia Gourmet",
-        sabor: sabor,
-        preco: 12
-    };
-
-    itensCarrinho.push(item);
-    atualizarCarrinho();
-    fecharModalFatia();
+  itensCarrinho.push(item);
+  atualizarCarrinho();
+  fecharModalFatia();
 });
+
+// ============================
+// ADICIONAR TORTA
+// ============================
 
 confirmarTorta.addEventListener("click", () => {
+  const tamanho = selectTamanhoTorta.value;
+  const base = selectBaseTorta.value;
+  const recheio = selectRecheioTorta.value;
 
-    const tamanho = selectTamanhoTorta.value;
-    const base = selectBaseTorta.value;
-    const recheio = selectRecheioTorta.value;
+  if (!tamanho || !base || !recheio) {
+    alert("Escolha tamanho, base e recheio.");
+    return;
+  }
 
-    if (!tamanho || !base || !recheio) {
-        alert("Escolha tamanho, base e recheio.");
-        return;
-    }
+  const preco = parseFloat(
+    selectTamanhoTorta.options[
+      selectTamanhoTorta.selectedIndex
+    ].dataset.preco
+  );
 
-    const preco = parseFloat(
-        selectTamanhoTorta.options[
-            selectTamanhoTorta.selectedIndex
-        ].dataset.preco
-    );
+  const item = {
+    tipo: "torta",
+    nome: "Torta",
+    tamanho,
+    base,
+    recheio,
+    preco
+  };
 
-    const item = {
-        tipo: "torta",
-        nome: "Torta",
-        tamanho,
-        base,
-        recheio,
-        preco
-    };
-
-    itensCarrinho.push(item);
-    atualizarCarrinho();
-    fecharModalTorta();
+  itensCarrinho.push(item);
+  atualizarCarrinho();
+  fecharModalTorta();
 });
-
-// ============================
-// ADICIONAR OUTROS PRODUTOS
-// ============================
-
-function adicionarItem(nome, preco) {
-
-    const item = {
-        nome,
-        preco
-    };
-
-    itensCarrinho.push(item);
-    atualizarCarrinho();
-}
 
 // ============================
 // ATUALIZAR CARRINHO
 // ============================
 
 function atualizarCarrinho() {
+  carrinhoItens.innerHTML = "";
+  let total = 0;
 
-    carrinhoItens.innerHTML = "";
-    let total = 0;
+  itensCarrinho.forEach((item, index) => {
+    total += item.preco;
 
-    itensCarrinho.forEach((item, index) => {
+    const div = document.createElement("div");
+    div.classList.add("item-carrinho");
 
-        total += item.preco;
+    div.innerHTML = `
+      <h4>${item.nome}</h4>
 
-        const div = document.createElement("div");
-        div.classList.add("item-carrinho");
-
-        div.innerHTML = `
-    <h4>${item.nome}</h4>
-
-    ${item.nome === "Bolo Personalizado" ? `
+      ${item.tipo === "bolo" ? `
         <small>${item.tamanho} • ${item.massa}</small>
         <small>Recheio: ${item.recheio}</small>
-    ` : ""}
+      ` : ""}
 
-    ${item.nome === "Torta" ? `
+      ${item.tipo === "torta" ? `
         <small>${item.tamanho} • Base: ${item.base}</small>
         <small>Recheio: ${item.recheio}</small>
-    ` : ""}
+      ` : ""}
 
-    ${item.nome === "Fatia Gourmet" ? `
+      ${item.tipo === "fatia" ? `
         <small>Sabor: ${item.sabor}</small>
-    ` : ""}
+      ` : ""}
 
-    <div class="item-footer">
+      <div class="item-footer">
         <strong>R$ ${item.preco.toFixed(2)}</strong>
         <button class="remover-item" onclick="removerItem(${index})">
-            Remover
+          Remover
         </button>
-    </div>
-`;
+      </div>
+    `;
 
-        carrinhoItens.appendChild(div);
-    });
+    carrinhoItens.appendChild(div);
+  });
 
-    totalCarrinho.textContent = `R$ ${total.toFixed(2)}`;
-    contadorCarrinho.textContent = itensCarrinho.length;
+  totalCarrinho.textContent = `R$ ${total.toFixed(2)}`;
+  contadorCarrinho.textContent = itensCarrinho.length;
 }
 
 // ============================
@@ -254,8 +236,8 @@ function atualizarCarrinho() {
 // ============================
 
 function removerItem(index) {
-    itensCarrinho.splice(index, 1);
-    atualizarCarrinho();
+  itensCarrinho.splice(index, 1);
+  atualizarCarrinho();
 }
 
 // ============================
@@ -263,13 +245,13 @@ function removerItem(index) {
 // ============================
 
 function abrirCarrinho() {
-    carrinho.classList.add("ativo");
-    overlayCarrinho.classList.add("ativo");
+  carrinho.classList.add("ativo");
+  overlayCarrinho.classList.add("ativo");
 }
 
 function fecharCarrinho() {
-    carrinho.classList.remove("ativo");
-    overlayCarrinho.classList.remove("ativo");
+  carrinho.classList.remove("ativo");
+  overlayCarrinho.classList.remove("ativo");
 }
 
 // ============================
@@ -277,47 +259,41 @@ function fecharCarrinho() {
 // ============================
 
 btnFinalizar.addEventListener("click", () => {
+  if (itensCarrinho.length === 0) {
+    alert("Seu carrinho está vazio.");
+    return;
+  }
 
-    if (itensCarrinho.length === 0) {
-        alert("Seu carrinho está vazio.");
-        return;
+  let mensagem = "Olá! Gostaria de fazer o pedido:%0A%0A";
+  let total = 0;
+
+  itensCarrinho.forEach(item => {
+    mensagem += `• ${item.nome}%0A`;
+
+    if (item.tipo === "bolo") {
+      mensagem += `Tamanho: ${item.tamanho}%0A`;
+      mensagem += `Massa: ${item.massa}%0A`;
+      mensagem += `Recheio: ${item.recheio}%0A`;
     }
 
-    let mensagem = "Olá! Gostaria de fazer o pedido:%0A%0A";
-    let total = 0;
+    if (item.tipo === "fatia") {
+      mensagem += `Sabor: ${item.sabor}%0A`;
+    }
 
-    itensCarrinho.forEach(item => {
+    if (item.tipo === "torta") {
+      mensagem += `Tamanho: ${item.tamanho}%0A`;
+      mensagem += `Base: ${item.base}%0A`;
+      mensagem += `Recheio: ${item.recheio}%0A`;
+    }
 
-        mensagem += `• ${item.nome}%0A`;
+    mensagem += `Valor: R$ ${item.preco.toFixed(2)}%0A%0A`;
+    total += item.preco;
+  });
 
-        // 🎂 BOLO
-        if (item.tipo === "bolo") {
-            mensagem += `  Tamanho: ${item.tamanho}%0A`;
-            mensagem += `  Massa: ${item.massa}%0A`;
-            mensagem += `  Recheio: ${item.recheio}%0A`;
-        }
+  mensagem += `Total do pedido: R$ ${total.toFixed(2)}`;
 
-        // 🍰 FATIA
-        if (item.tipo === "fatia") {
-            mensagem += `  Sabor: ${item.sabor}%0A`;
-        }
+  const numero = "5561991199563";
+  const url = `https://wa.me/${numero}?text=${mensagem}`;
 
-        // 🥧 TORTA
-        if (item.tipo === "torta") {
-            mensagem += `  Tamanho: ${item.tamanho}%0A`;
-            mensagem += `  Base: ${item.base}%0A`;
-            mensagem += `  Recheio: ${item.recheio}%0A`;
-        }
-
-        mensagem += `  Valor: R$ ${item.preco.toFixed(2)}%0A%0A`;
-
-        total += item.preco;
-    });
-
-    mensagem += `Total do pedido: R$ ${total.toFixed(2)}`;
-
-    const numero = "5561991199563";
-    const url = `https://wa.me/${numero}?text=${mensagem}`;
-
-    window.open(url, "_blank");
+  window.open(url, "_blank");
 });
