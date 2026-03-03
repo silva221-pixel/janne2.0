@@ -173,42 +173,6 @@
             </div>
         </section>
 
-        <!-- ================= MODAL BOLO ================= -->
-        <div class="modal-overlay" id="modalOverlay"></div>
-
-        <div class="modal-bolo" id="modalBolo">
-            <h3>Monte seu Bolo</h3>
-
-            <label>Tamanho:</label>
-            <select id="modalTamanho">
-                <option value="" disabled selected>Escolha o tamanho</option>
-                <option value="1kg" data-preco="55">1kg - R$55,00</option>
-                <option value="2kg" data-preco="110">2kg - R$110,00</option>
-                <option value="3kg" data-preco="165">3kg - R$165,00</option>
-            </select>
-
-            <label>Massa:</label>
-            <select id="modalMassa">
-                <option value="" disabled selected>Escolha a massa</option>
-                <option>Branca (Baunilha)</option>
-                <option>Chocolate</option>
-                <option>Red Velvet</option>
-            </select>
-
-            <label>Recheio:</label>
-            <select id="modalRecheio">
-                <option value="" disabled selected>Escolha o recheio</option>
-                <option>Abacaxi com coco</option>
-                <option>Prestígio</option>
-                <option>Ninho com Nutella</option>
-                <option>Chocolate com morango</option>
-                <option>Brigadeiro</option>
-            </select>
-
-            <button id="confirmarBolo" class="btn-add">Confirmar Pedido</button>
-            <button onclick="fecharModal()" class="btn-cancelar">Cancelar</button>
-        </div>
-
         <!-- ================= DEPOIMENTOS ================= -->
         <section id="depoimentos" class="depoimentos">
             <div class="container">
@@ -272,6 +236,42 @@
             </button>
         </div>
     </aside>
+
+    <!-- ================= MODAL BOLO ================= -->
+        <div class="modal-overlay" id="modalOverlay"></div>
+
+        <div class="modal-bolo" id="modalBolo">
+            <h3>Monte seu Bolo</h3>
+
+            <label>Tamanho:</label>
+            <select id="modalTamanho">
+                <option value="" disabled selected>Escolha o tamanho</option>
+                <option value="1kg" data-preco="55">1kg - R$55,00</option>
+                <option value="2kg" data-preco="110">2kg - R$110,00</option>
+                <option value="3kg" data-preco="165">3kg - R$165,00</option>
+            </select>
+
+            <label>Massa:</label>
+            <select id="modalMassa">
+                <option value="" disabled selected>Escolha a massa</option>
+                <option>Branca (Baunilha)</option>
+                <option>Chocolate</option>
+                <option>Red Velvet</option>
+            </select>
+
+            <label>Recheio:</label>
+            <select id="modalRecheio">
+                <option value="" disabled selected>Escolha o recheio</option>
+                <option>Abacaxi com coco</option>
+                <option>Prestígio</option>
+                <option>Ninho com Nutella</option>
+                <option>Chocolate com morango</option>
+                <option>Brigadeiro</option>
+            </select>
+
+            <button id="confirmarBolo" class="btn-add">Confirmar Pedido</button>
+            <button onclick="fecharModal()" class="btn-cancelar">Cancelar</button>
+        </div>
 
     <!-- JS -->
     <script src="script.js"></script>
