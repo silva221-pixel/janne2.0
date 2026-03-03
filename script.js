@@ -121,6 +121,7 @@ confirmarBolo.addEventListener("click", () => {
     );
 
     const item = {
+        tipo: "bolo",
         nome: "Bolo Personalizado",
         tamanho,
         massa,
@@ -143,10 +144,11 @@ confirmarFatia.addEventListener("click", () => {
     }
 
     const item = {
+        tipo: "fatia",
         nome: "Fatia Gourmet",
-        sabor: sabor,
+        sabor,
         preco: 12
-    };
+    };;
 
     itensCarrinho.push(item);
     atualizarCarrinho();
@@ -171,6 +173,7 @@ confirmarTorta.addEventListener("click", () => {
     );
 
     const item = {
+        tipo: "torta",
         nome: "Torta",
         tamanho,
         base,
@@ -288,19 +291,19 @@ btnFinalizar.addEventListener("click", () => {
         mensagem += `• ${item.nome}%0A`;
 
         // 🎂 BOLO
-        if (item.nome === "Bolo Personalizado") {
+        if (item.tipo === "bolo") {
             mensagem += `  Tamanho: ${item.tamanho}%0A`;
             mensagem += `  Massa: ${item.massa}%0A`;
             mensagem += `  Recheio: ${item.recheio}%0A`;
         }
 
         // 🍰 FATIA
-        if (item.nome === "Fatia Gourmet") {
+        if (item.tipo === "fatia") {
             mensagem += `  Sabor: ${item.sabor}%0A`;
         }
 
         // 🥧 TORTA
-        if (item.nome === "Torta") {
+        if (item.tipo === "torta") {
             mensagem += `  Tamanho: ${item.tamanho}%0A`;
             mensagem += `  Base: ${item.base}%0A`;
             mensagem += `  Recheio: ${item.recheio}%0A`;
