@@ -215,26 +215,29 @@ function atualizarCarrinho() {
         div.classList.add("item-carrinho");
 
         div.innerHTML = `
-            <h4>${item.nome}</h4>
-            ${item.tamanho ? `
-    <small>${item.tamanho} • ${item.massa} • ${item.recheio}</small>
-` : ""}
+    <h4>${item.nome}</h4>
 
-${item.base ? `
-    <small>${item.tamanho} • Base: ${item.base}</small>
-    <small>Recheio: ${item.recheio}</small>
-` : ""}
+    ${item.nome === "Bolo Personalizado" ? `
+        <small>${item.tamanho} • ${item.massa}</small>
+        <small>Recheio: ${item.recheio}</small>
+    ` : ""}
 
-${item.sabor ? `
-    <small>Sabor: ${item.sabor}</small>
-` : ""}
-            <div class="item-footer">
-                <strong>R$ ${item.preco.toFixed(2)}</strong>
-                <button class="remover-item" onclick="removerItem(${index})">
-                    Remover
-                </button>
-            </div>
-        `;
+    ${item.nome === "Torta" ? `
+        <small>${item.tamanho} • Base: ${item.base}</small>
+        <small>Recheio: ${item.recheio}</small>
+    ` : ""}
+
+    ${item.nome === "Fatia Gourmet" ? `
+        <small>Sabor: ${item.sabor}</small>
+    ` : ""}
+
+    <div class="item-footer">
+        <strong>R$ ${item.preco.toFixed(2)}</strong>
+        <button class="remover-item" onclick="removerItem(${index})">
+            Remover
+        </button>
+    </div>
+`;
 
         carrinhoItens.appendChild(div);
     });
@@ -284,25 +287,28 @@ btnFinalizar.addEventListener("click", () => {
 
         mensagem += `• ${item.nome}%0A`;
 
-        if (item.tamanho) {
+        // 🎂 BOLO
+        if (item.nome === "Bolo Personalizado") {
             mensagem += `  Tamanho: ${item.tamanho}%0A`;
             mensagem += `  Massa: ${item.massa}%0A`;
             mensagem += `  Recheio: ${item.recheio}%0A`;
         }
 
-        if (item.sabor) {
+        // 🍰 FATIA
+        if (item.nome === "Fatia Gourmet") {
             mensagem += `  Sabor: ${item.sabor}%0A`;
+        }
+
+        // 🥧 TORTA
+        if (item.nome === "Torta") {
+            mensagem += `  Tamanho: ${item.tamanho}%0A`;
+            mensagem += `  Base: ${item.base}%0A`;
+            mensagem += `  Recheio: ${item.recheio}%0A`;
         }
 
         mensagem += `  Valor: R$ ${item.preco.toFixed(2)}%0A%0A`;
 
         total += item.preco;
-
-        if (item.base) {
-            mensagem += `  Tamanho: ${item.tamanho}%0A`;
-            mensagem += `  Base: ${item.base}%0A`;
-            mensagem += `  Recheio: ${item.recheio}%0A`;
-        }
     });
 
     mensagem += `Total do pedido: R$ ${total.toFixed(2)}`;
