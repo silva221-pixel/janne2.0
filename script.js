@@ -25,6 +25,15 @@ const modalFatiaOverlay = document.getElementById("modalFatiaOverlay");
 const selectSaborFatia = document.getElementById("selectSaborFatia");
 const confirmarFatia = document.getElementById("confirmarFatia");
 
+const modalTorta = document.getElementById("modalTorta");
+const modalTortaOverlay = document.getElementById("modalTortaOverlay");
+
+const selectTamanhoTorta = document.getElementById("selectTamanhoTorta");
+const selectBaseTorta = document.getElementById("selectBaseTorta");
+const selectRecheioTorta = document.getElementById("selectRecheioTorta");
+
+const confirmarTorta = document.getElementById("confirmarTorta");
+
 let itensCarrinho = [];
 
 // ============================
@@ -76,6 +85,20 @@ function fecharModalFatia() {
     modalFatia.classList.remove("ativo");
     modalFatiaOverlay.classList.remove("ativo");
     selectSaborFatia.value = "";
+}
+
+function abrirModalTorta() {
+    modalTorta.classList.add("ativo");
+    modalTortaOverlay.classList.add("ativo");
+}
+
+function fecharModalTorta() {
+    modalTorta.classList.remove("ativo");
+    modalTortaOverlay.classList.remove("ativo");
+
+    selectTamanhoTorta.value = "";
+    selectBaseTorta.value = "";
+    selectRecheioTorta.value = "";
 }
 
 // ============================
@@ -130,6 +153,36 @@ confirmarFatia.addEventListener("click", () => {
     fecharModalFatia();
 });
 
+confirmarTorta.addEventListener("click", () => {
+
+    const tamanho = selectTamanhoTorta.value;
+    const base = selectBaseTorta.value;
+    const recheio = selectRecheioTorta.value;
+
+    if (!tamanho || !base || !recheio) {
+        alert("Escolha tamanho, base e recheio.");
+        return;
+    }
+
+    const preco = parseFloat(
+        selectTamanhoTorta.options[
+            selectTamanhoTorta.selectedIndex
+        ].dataset.preco
+    );
+
+    const item = {
+        nome: "Torta",
+        tamanho,
+        base,
+        recheio,
+        preco
+    };
+
+    itensCarrinho.push(item);
+    atualizarCarrinho();
+    fecharModalTorta();
+});
+
 // ============================
 // ADICIONAR OUTROS PRODUTOS
 // ============================
@@ -165,6 +218,11 @@ function atualizarCarrinho() {
             <h4>${item.nome}</h4>
             ${item.tamanho ? `
     <small>${item.tamanho} • ${item.massa} • ${item.recheio}</small>
+` : ""}
+
+${item.base ? `
+    <small>${item.tamanho} • Base: ${item.base}</small>
+    <small>Recheio: ${item.recheio}</small>
 ` : ""}
 
 ${item.sabor ? `
@@ -239,6 +297,12 @@ btnFinalizar.addEventListener("click", () => {
         mensagem += `  Valor: R$ ${item.preco.toFixed(2)}%0A%0A`;
 
         total += item.preco;
+
+        if (item.base) {
+            mensagem += `  Tamanho: ${item.tamanho}%0A`;
+            mensagem += `  Base: ${item.base}%0A`;
+            mensagem += `  Recheio: ${item.recheio}%0A`;
+        }
     });
 
     mensagem += `Total do pedido: R$ ${total.toFixed(2)}`;
