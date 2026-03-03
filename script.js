@@ -1,282 +1,179 @@
-/* =========================
-   UTILIDADES
-========================= */
-
-const formatarMoeda = (valor) => {
-  return valor.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  });
-};
-
-/* =========================
-   FILTRO DE CATEGORIA
-========================= */
+// ============================
+// ELEMENTOS
+// ============================
 
 const botoesFiltro = document.querySelectorAll(".filtro-btn");
 const produtos = document.querySelectorAll(".produto-card");
 
-botoesFiltro.forEach(botao => {
-  botao.addEventListener("click", () => {
-
-    const categoria = botao.dataset.categoria;
-
-    botoesFiltro.forEach(btn => btn.classList.remove("active"));
-    botao.classList.add("active");
-
-    produtos.forEach(produto => {
-      if (categoria === "todos" || produto.dataset.categoria === categoria) {
-        produto.style.display = "block";
-      } else {
-        produto.style.display = "none";
-      }
-    });
-
-  });
-});
-
-/* =========================
-   CARRINHO
-========================= */
-
-let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-
-const carrinhoLateral = document.querySelector(".carrinho-lateral");
-const overlay = document.querySelector(".carrinho-overlay");
-const listaCarrinho = document.querySelector(".carrinho-itens");
-const totalElemento = document.getElementById("total-carrinho");
-const contadorCarrinho = document.getElementById("contador-carrinho");
-
-function abrirCarrinho() {
-  carrinhoLateral.classList.add("ativo");
-  overlay.classList.add("ativo");
-}
-
-function fecharCarrinho() {
-  carrinhoLateral.classList.remove("ativo");
-  overlay.classList.remove("ativo");
-}
-
-overlay.addEventListener("click", fecharCarrinho);
-
-/* =========================
-   ATUALIZAR CARRINHO
-========================= */
-
-function atualizarCarrinho() {
-
-  listaCarrinho.innerHTML = "";
-  let total = 0;
-  let totalItens = 0;
-
-  carrinho.forEach((item, index) => {
-
-    total += item.preco * item.quantidade;
-    totalItens += item.quantidade;
-
-    const itemHTML = `
-      <div class="item-carrinho">
-        <div>
-          <h4>${item.nome}</h4>
-          <p>${formatarMoeda(item.preco)}</p>
-        </div>
-
-        <div class="qtd-controle">
-          <button onclick="diminuirQuantidade(${index})">−</button>
-          <span>${item.quantidade}</span>
-          <button onclick="aumentarQuantidade(${index})">+</button>
-        </div>
-      </div>
-    `;
-
-    listaCarrinho.innerHTML += itemHTML;
-  });
-
-  totalElemento.textContent = formatarMoeda(total);
-  contadorCarrinho.textContent = totalItens;
-
-  localStorage.setItem("carrinho", JSON.stringify(carrinho));
-}
-
-/* =========================
-   ADICIONAR
-========================= */
-
-function adicionarAoCarrinho(nome, preco) {
-
-  const itemExistente = carrinho.find(item => item.nome === nome);
-
-  if (itemExistente) {
-    itemExistente.quantidade++;
-  } else {
-    carrinho.push({
-      nome,
-      preco,
-      quantidade: 1
-    });
-  }
-
-  atualizarCarrinho();
-  abrirCarrinho();
-}
-
-/* =========================
-   CONTROLE QTD
-========================= */
-
-function aumentarQuantidade(index) {
-  carrinho[index].quantidade++;
-  atualizarCarrinho();
-}
-
-function diminuirQuantidade(index) {
-  carrinho[index].quantidade--;
-
-  if (carrinho[index].quantidade <= 0) {
-    carrinho.splice(index, 1);
-  }
-
-  atualizarCarrinho();
-}
-
-/* =========================
-   BOTÃO ADICIONAR
-========================= */
-
-document.querySelectorAll(".btn-add").forEach(botao => {
-
-  botao.addEventListener("click", () => {
-
-    const card = botao.closest(".produto-card");
-    const nomeBase = card.querySelector("h4").textContent;
-
-    const select = card.querySelector(".select-tamanho");
-
-    let nomeFinal = nomeBase;
-    let precoFinal;
-
-    if (select) {
-      const optionSelecionada = select.options[select.selectedIndex];
-      const tamanho = optionSelecionada.value;
-      precoFinal = parseFloat(optionSelecionada.dataset.preco);
-
-      nomeFinal = `${nomeBase} - ${tamanho}kg`;
-    } else {
-      const precoTexto = card.querySelector(".preco").textContent;
-      precoFinal = parseFloat(
-        precoTexto.replace("R$", "").replace(",", ".").trim()
-      );
-    }
-
-    adicionarAoCarrinho(nomeFinal, precoFinal);
-
-  });
-
-});
-
-/* =========================
-   WHATSAPP
-========================= */
-
-document.querySelector(".btn-finalizar").addEventListener("click", () => {
-
-  if (carrinho.length === 0) {
-    alert("Seu carrinho está vazio.");
-    return;
-  }
-
-  let mensagem = "Olá! Gostaria de fazer o seguinte pedido:%0A%0A";
-
-  carrinho.forEach(item => {
-    mensagem += `• ${item.nome} (x${item.quantidade}) - ${formatarMoeda(item.preco * item.quantidade)}%0A`;
-  });
-
-  const total = carrinho.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
-
-  mensagem += `%0ATotal: ${formatarMoeda(total)}%0A`;
-  mensagem += "%0AObrigado! 😊";
-
-  window.open(`https://wa.me/5561991199563?text=${mensagem}`, "_blank");
-
-});
-
-/* =========================
-   INICIAR
-========================= */
-
-document.querySelector('[data-categoria="todos"]').click();
-atualizarCarrinho();
-
-/* ================= MODAL BOLO ================= */
-
-let boloSelecionado = "";
-
+const btnsBolo = document.querySelectorAll(".btn-bolo");
 const modal = document.getElementById("modalBolo");
 const modalOverlay = document.getElementById("modalOverlay");
 
-function abrirModal(nomeBolo) {
-  boloSelecionado = nomeBolo;
-  modal.classList.add("ativo");
-  modalOverlay.classList.add("ativo");
-}
+const confirmarBolo = document.getElementById("confirmarBolo");
+const selectTamanho = document.getElementById("modalTamanho");
+const selectMassa = document.getElementById("modalMassa");
+const selectRecheio = document.getElementById("modalRecheio");
 
-function fecharModal() {
-  modal.classList.remove("ativo");
-  modalOverlay.classList.remove("ativo");
-}
+const carrinho = document.querySelector(".carrinho-lateral");
+const overlayCarrinho = document.querySelector(".carrinho-overlay");
+const carrinhoItens = document.querySelector(".carrinho-itens");
+const totalCarrinho = document.getElementById("total-carrinho");
+const contadorCarrinho = document.getElementById("contador-carrinho");
+const btnFinalizar = document.querySelector(".btn-finalizar");
 
-modalOverlay.addEventListener("click", fecharModal);
+let itensCarrinho = [];
 
-/* ALTERAR BOTÃO ADICIONAR PARA BOLOS */
+// ============================
+// FILTROS
+// ============================
 
-document.querySelectorAll(".produto-card").forEach(card => {
+botoesFiltro.forEach(botao => {
+    botao.addEventListener("click", () => {
 
-  const categoria = card.dataset.categoria;
-  const botao = card.querySelector(".btn-add");
+        botoesFiltro.forEach(btn => btn.classList.remove("active"));
+        botao.classList.add("active");
 
-  botao.addEventListener("click", () => {
+        const categoria = botao.dataset.categoria;
 
-    const nome = card.querySelector("h4").textContent;
-
-    if (categoria === "bolos") {
-      abrirModal(nome);
-    } else {
-      const precoTexto = card.querySelector(".preco").textContent;
-      const preco = parseFloat(
-        precoTexto.replace("R$", "").replace(",", ".").trim()
-      );
-      adicionarAoCarrinho(nome, preco);
-    }
-
-  });
-
+        produtos.forEach(produto => {
+            if (categoria === "todos" || produto.dataset.categoria === categoria) {
+                produto.style.display = "block";
+            } else {
+                produto.style.display = "none";
+            }
+        });
+    });
 });
 
-/* CONFIRMAR BOLO */
+// ============================
+// MODAL BOLO
+// ============================
 
-document.getElementById("confirmarBolo").addEventListener("click", () => {
+btnsBolo.forEach(botao => {
+    botao.addEventListener("click", () => {
+        modal.classList.add("ativo");
+        modalOverlay.classList.add("ativo");
+    });
+});
 
-  const tamanhoSelect = document.getElementById("modalTamanho");
-  const massa = document.getElementById("modalMassa").value;
-  const recheio = document.getElementById("modalRecheio").value;
+function fecharModal() {
+    modal.classList.remove("ativo");
+    modalOverlay.classList.remove("ativo");
 
-  if (!tamanhoSelect.value || !massa || !recheio) {
-    alert("Escolha todas as opções.");
-    return;
-  }
+    selectTamanho.value = "";
+    selectMassa.value = "";
+    selectRecheio.value = "";
+}
 
-  const preco = parseFloat(
-    tamanhoSelect.options[tamanhoSelect.selectedIndex].dataset.preco
-  );
+// ============================
+// ADICIONAR BOLO AO CARRINHO
+// ============================
 
-  const nomeFinal = `
-${boloSelecionado}
-- ${tamanhoSelect.value}
-- Massa: ${massa}
-- Recheio: ${recheio}
-`;
+confirmarBolo.addEventListener("click", () => {
 
-  adicionarAoCarrinho(nomeFinal, preco);
-  fecharModal();
+    const tamanho = selectTamanho.value;
+    const massa = selectMassa.value;
+    const recheio = selectRecheio.value;
 
+    if (!tamanho || !massa || !recheio) {
+        alert("Escolha tamanho, massa e recheio.");
+        return;
+    }
+
+    const preco = parseFloat(
+        selectTamanho.options[selectTamanho.selectedIndex].dataset.preco
+    );
+
+    const item = {
+        nome: "Bolo Personalizado",
+        tamanho,
+        massa,
+        recheio,
+        preco
+    };
+
+    itensCarrinho.push(item);
+    atualizarCarrinho();
+    fecharModal();
+});
+
+// ============================
+// CARRINHO
+// ============================
+
+function atualizarCarrinho() {
+
+    carrinhoItens.innerHTML = "";
+    let total = 0;
+
+    itensCarrinho.forEach((item, index) => {
+
+        total += item.preco;
+
+        const div = document.createElement("div");
+        div.classList.add("item-carrinho");
+
+        div.innerHTML = `
+            <p><strong>${item.nome}</strong></p>
+            <small>${item.tamanho} • ${item.massa} • ${item.recheio}</small>
+            <p>R$ ${item.preco.toFixed(2)}</p>
+            <button onclick="removerItem(${index})">Remover</button>
+        `;
+
+        carrinhoItens.appendChild(div);
+    });
+
+    totalCarrinho.textContent = `R$ ${total.toFixed(2)}`;
+    contadorCarrinho.textContent = itensCarrinho.length;
+}
+
+function removerItem(index) {
+    itensCarrinho.splice(index, 1);
+    atualizarCarrinho();
+}
+
+// ============================
+// ABRIR / FECHAR CARRINHO
+// ============================
+
+function abrirCarrinho() {
+    carrinho.classList.add("ativo");
+    overlayCarrinho.classList.add("ativo");
+}
+
+function fecharCarrinho() {
+    carrinho.classList.remove("ativo");
+    overlayCarrinho.classList.remove("ativo");
+}
+
+// ============================
+// FINALIZAR NO WHATSAPP
+// ============================
+
+btnFinalizar.addEventListener("click", () => {
+
+    if (itensCarrinho.length === 0) {
+        alert("Seu carrinho está vazio.");
+        return;
+    }
+
+    let mensagem = "Olá! Gostaria de fazer o pedido:%0A%0A";
+
+    let total = 0;
+
+    itensCarrinho.forEach(item => {
+        mensagem += `• ${item.nome}%0A`;
+        mensagem += `  Tamanho: ${item.tamanho}%0A`;
+        mensagem += `  Massa: ${item.massa}%0A`;
+        mensagem += `  Recheio: ${item.recheio}%0A`;
+        mensagem += `  Valor: R$ ${item.preco.toFixed(2)}%0A%0A`;
+        total += item.preco;
+    });
+
+    mensagem += `Total: R$ ${total.toFixed(2)}`;
+
+    const numero = "5561991199563";
+    const url = `https://wa.me/${numero}?text=${mensagem}`;
+
+    window.open(url, "_blank");
 });

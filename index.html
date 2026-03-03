@@ -86,14 +86,14 @@
 
                     <!-- BOLO CHOCOLATE -->
                     <article class="produto-card" data-categoria="bolos">
-                        <img src="img/chocolate.jpg" alt="Bolo de chocolate artesanal com cobertura cremosa"
-                            loading="lazy">
+                        <img src="img/chocolate.jpg" alt="Bolo de chocolate artesanal" loading="lazy">
 
                         <div class="produto-info">
-                            <h4>Bolo de Chocolate</h4>
-                            <p>Massa intensa com cobertura cremosa.</p>
-                            <button class="btn-add">
-                                Adicionar
+                            <h4>Bolo Personalizado</h4>
+                            <p>Escolha tamanho, massa e recheio.</p>
+
+                            <button class="btn-add btn-bolo">
+                                Montar Bolo
                             </button>
                         </div>
                     </article>
@@ -206,39 +206,49 @@
     </aside>
 
     <!-- ================= MODAL BOLO ================= -->
-    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-overlay" id="modalOverlay" onclick="fecharModal()"></div>
 
-    <div class="modal-bolo" id="modalBolo">
-        <h3>Monte seu Bolo</h3>
+    <div class="modal-bolo" id="modalBolo" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <h3>Monte seu Bolo</h3>
+            <button class="fechar-btn" onclick="fecharModal()">✕</button>
+        </div>
 
-        <label>Tamanho:</label>
-        <select id="modalTamanho">
-            <option value="" disabled selected>Escolha o tamanho</option>
-            <option value="1kg" data-preco="55">1kg - R$55,00</option>
-            <option value="2kg" data-preco="110">2kg - R$110,00</option>
-            <option value="3kg" data-preco="165">3kg - R$165,00</option>
-        </select>
+        <div class="modal-body">
 
-        <label>Massa:</label>
-        <select id="modalMassa">
-            <option value="" disabled selected>Escolha a massa</option>
-            <option>Branca (Baunilha)</option>
-            <option>Chocolate</option>
-            <option>Red Velvet</option>
-        </select>
+            <label for="modalTamanho">Tamanho:</label>
+            <select id="modalTamanho">
+                <option value="" disabled selected>Escolha o tamanho</option>
+                <option value="1kg" data-preco="55">1kg - R$55,00</option>
+                <option value="2kg" data-preco="110">2kg - R$110,00</option>
+                <option value="3kg" data-preco="165">3kg - R$165,00</option>
+            </select>
 
-        <label>Recheio:</label>
-        <select id="modalRecheio">
-            <option value="" disabled selected>Escolha o recheio</option>
-            <option>Abacaxi com coco</option>
-            <option>Prestígio</option>
-            <option>Ninho com Nutella</option>
-            <option>Chocolate com morango</option>
-            <option>Brigadeiro</option>
-        </select>
+            <label for="modalMassa">Massa:</label>
+            <select id="modalMassa">
+                <option value="" disabled selected>Escolha a massa</option>
+                <option>Branca (Baunilha)</option>
+                <option>Chocolate</option>
+                <option>Red Velvet</option>
+            </select>
 
-        <button id="confirmarBolo" class="btn-add">Confirmar Pedido</button>
-        <button onclick="fecharModal()" class="btn-cancelar">Cancelar</button>
+            <label for="modalRecheio">Recheio:</label>
+            <select id="modalRecheio">
+                <option value="" disabled selected>Escolha o recheio</option>
+                <option>Abacaxi com coco</option>
+                <option>Prestígio</option>
+                <option>Ninho com Nutella</option>
+                <option>Chocolate com morango</option>
+                <option>Brigadeiro</option>
+            </select>
+
+        </div>
+
+        <div class="modal-footer">
+            <button id="confirmarBolo" class="btn-primary">
+                Adicionar ao Carrinho
+            </button>
+        </div>
     </div>
 
     <!-- JS -->
