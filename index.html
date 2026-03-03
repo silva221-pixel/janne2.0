@@ -14,7 +14,6 @@
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -38,9 +37,9 @@
         </div>
     </header>
 
-    <!-- ================= HERO ================= -->
     <main>
 
+        <!-- ================= HERO ================= -->
         <section class="hero">
             <div class="container hero-content">
                 <h2>Arte em camadas. Sabor que transforma momentos.</h2>
@@ -70,7 +69,6 @@
         <!-- ================= CARDÁPIO ================= -->
         <section id="cardapio" class="cardapio">
             <div class="container">
-
                 <h2>Nosso Cardápio</h2>
 
                 <!-- FILTROS -->
@@ -78,60 +76,58 @@
                     <button class="filtro-btn active" data-categoria="todos">Todos</button>
                     <button class="filtro-btn" data-categoria="bolos">Bolos</button>
                     <button class="filtro-btn" data-categoria="tortas">Tortas</button>
-                    <button class="filtro-btn" data-categoria="doces">Doces</button>
+                    <button class="filtro-btn" data-categoria="fatias">Fatias</button>
                 </div>
 
-                <!-- GRID PRODUTOS -->
+                <!-- PRODUTOS -->
                 <div class="grid-produtos">
 
-                    <!-- BOLO CHOCOLATE -->
+                    <!-- BOLO PERSONALIZADO -->
                     <article class="produto-card" data-categoria="bolos">
-                        <img src="img/chocolate.jpg" alt="Bolo de chocolate artesanal" loading="lazy">
-
+                        <img src="img/chocolate.jpg" alt="Bolo artesanal" loading="lazy">
                         <div class="produto-info">
                             <h4>Bolo Personalizado</h4>
                             <p>Escolha tamanho, massa e recheio.</p>
-
-                            <button class="btn-add btn-bolo">
+                            <button class="btn-add btn-bolo" onclick="abrirModal()">
                                 Montar Bolo
                             </button>
                         </div>
                     </article>
 
-                    <!-- RED VELVET -->
+                    <!-- BOLO INTEIRO -->
                     <article class="produto-card" data-categoria="bolos">
-                        <img src="img/red.jpg" alt="Bolo Red Velvet com creme delicado" loading="lazy">
-
+                        <img src="img/bolo-inteiro.jpg" alt="Bolo Inteiro" loading="lazy">
                         <div class="produto-info">
-                            <h4>Red Velvet</h4>
-                            <p>Massa aveludada com creme delicado.</p>
-                            <button class="btn-add">
+                            <h4>Bolo Inteiro (2,5kg)</h4>
+                            <p>1 camada com 2 sabores (exceto cenoura)</p>
+                            <div class="preco">R$ 150,00</div>
+                            <button class="btn-add" onclick="adicionarItem('Bolo Inteiro 2,5kg', 150)">
                                 Adicionar
                             </button>
                         </div>
                     </article>
 
-                    <!-- TORTA LIMÃO -->
+                    <!-- TORTA -->
                     <article class="produto-card" data-categoria="tortas">
-                        <img src="img/torta.jpg" alt="Torta de limão com base crocante e creme cítrico" loading="lazy">
+                        <img src="img/torta.jpg" alt="Torta de limão" loading="lazy">
                         <div class="produto-info">
                             <h4>Torta de Limão</h4>
                             <p>Base crocante com creme cítrico.</p>
                             <div class="preco">R$ 85,00</div>
-                            <button class="btn-add">
+                            <button class="btn-add" onclick="adicionarItem('Torta de Limão', 85)">
                                 Adicionar
                             </button>
                         </div>
                     </article>
 
-                    <!-- BRIGADEIRO -->
-                    <article class="produto-card" data-categoria="doces">
-                        <img src="img/brigadeiro.jpg" alt="Brigadeiro gourmet com chocolate belga" loading="lazy">
+                    <!-- FATIA -->
+                    <article class="produto-card" data-categoria="fatias">
+                        <img src="img/fatia.jpg" alt="Fatia Gourmet" loading="lazy">
                         <div class="produto-info">
-                            <h4>Brigadeiro Gourmet</h4>
-                            <p>Chocolate belga 70% cacau.</p>
-                            <div class="preco">R$ 6,00</div>
-                            <button class="btn-add">
+                            <h4>Fatia Gourmet</h4>
+                            <p>220g a 250g • Diversos sabores</p>
+                            <div class="preco">R$ 12,00</div>
+                            <button class="btn-add" onclick="adicionarItem('Fatia Gourmet', 12)">
                                 Adicionar
                             </button>
                         </div>
@@ -208,7 +204,7 @@
     <!-- ================= MODAL BOLO ================= -->
     <div class="modal-overlay" id="modalOverlay" onclick="fecharModal()"></div>
 
-    <div class="modal-bolo" id="modalBolo" role="dialog" aria-modal="true">
+    <div class="modal-bolo" id="modalBolo">
         <div class="modal-header">
             <h3>Monte seu Bolo</h3>
             <button class="fechar-btn" onclick="fecharModal()">✕</button>
@@ -251,9 +247,7 @@
         </div>
     </div>
 
-    <!-- JS -->
     <script src="script.js"></script>
 
 </body>
-
 </html>

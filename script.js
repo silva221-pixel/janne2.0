@@ -5,7 +5,6 @@
 const botoesFiltro = document.querySelectorAll(".filtro-btn");
 const produtos = document.querySelectorAll(".produto-card");
 
-const btnsBolo = document.querySelectorAll(".btn-bolo");
 const modal = document.getElementById("modalBolo");
 const modalOverlay = document.getElementById("modalOverlay");
 
@@ -46,15 +45,13 @@ botoesFiltro.forEach(botao => {
 });
 
 // ============================
-// MODAL BOLO
+// MODAL
 // ============================
 
-btnsBolo.forEach(botao => {
-    botao.addEventListener("click", () => {
-        modal.classList.add("ativo");
-        modalOverlay.classList.add("ativo");
-    });
-});
+function abrirModal() {
+    modal.classList.add("ativo");
+    modalOverlay.classList.add("ativo");
+}
 
 function fecharModal() {
     modal.classList.remove("ativo");
@@ -66,7 +63,7 @@ function fecharModal() {
 }
 
 // ============================
-// ADICIONAR BOLO AO CARRINHO
+// ADICIONAR BOLO PERSONALIZADO
 // ============================
 
 confirmarBolo.addEventListener("click", () => {
@@ -98,7 +95,22 @@ confirmarBolo.addEventListener("click", () => {
 });
 
 // ============================
-// CARRINHO
+// ADICIONAR OUTROS PRODUTOS
+// ============================
+
+function adicionarItem(nome, preco) {
+
+    const item = {
+        nome,
+        preco
+    };
+
+    itensCarrinho.push(item);
+    atualizarCarrinho();
+}
+
+// ============================
+// ATUALIZAR CARRINHO
 // ============================
 
 function atualizarCarrinho() {
@@ -114,10 +126,16 @@ function atualizarCarrinho() {
         div.classList.add("item-carrinho");
 
         div.innerHTML = `
-            <p><strong>${item.nome}</strong></p>
-            <small>${item.tamanho} • ${item.massa} • ${item.recheio}</small>
-            <p>R$ ${item.preco.toFixed(2)}</p>
-            <button onclick="removerItem(${index})">Remover</button>
+            <h4>${item.nome}</h4>
+            ${item.tamanho ? `
+                <small>${item.tamanho} • ${item.massa} • ${item.recheio}</small>
+            ` : ""}
+            <div class="item-footer">
+                <strong>R$ ${item.preco.toFixed(2)}</strong>
+                <button class="remover-item" onclick="removerItem(${index})">
+                    Remover
+                </button>
+            </div>
         `;
 
         carrinhoItens.appendChild(div);
@@ -126,6 +144,10 @@ function atualizarCarrinho() {
     totalCarrinho.textContent = `R$ ${total.toFixed(2)}`;
     contadorCarrinho.textContent = itensCarrinho.length;
 }
+
+// ============================
+// REMOVER ITEM
+// ============================
 
 function removerItem(index) {
     itensCarrinho.splice(index, 1);
@@ -147,7 +169,7 @@ function fecharCarrinho() {
 }
 
 // ============================
-// FINALIZAR NO WHATSAPP
+// FINALIZAR WHATSAPP
 // ============================
 
 btnFinalizar.addEventListener("click", () => {
@@ -158,19 +180,24 @@ btnFinalizar.addEventListener("click", () => {
     }
 
     let mensagem = "Olá! Gostaria de fazer o pedido:%0A%0A";
-
     let total = 0;
 
     itensCarrinho.forEach(item => {
+
         mensagem += `• ${item.nome}%0A`;
-        mensagem += `  Tamanho: ${item.tamanho}%0A`;
-        mensagem += `  Massa: ${item.massa}%0A`;
-        mensagem += `  Recheio: ${item.recheio}%0A`;
+
+        if (item.tamanho) {
+            mensagem += `  Tamanho: ${item.tamanho}%0A`;
+            mensagem += `  Massa: ${item.massa}%0A`;
+            mensagem += `  Recheio: ${item.recheio}%0A`;
+        }
+
         mensagem += `  Valor: R$ ${item.preco.toFixed(2)}%0A%0A`;
+
         total += item.preco;
     });
 
-    mensagem += `Total: R$ ${total.toFixed(2)}`;
+    mensagem += `Total do pedido: R$ ${total.toFixed(2)}`;
 
     const numero = "5561991199563";
     const url = `https://wa.me/${numero}?text=${mensagem}`;
