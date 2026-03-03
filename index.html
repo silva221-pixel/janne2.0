@@ -107,31 +107,30 @@
                         </div>
                     </article>
 
-                    <!-- TORTA -->
-                    <article class="produto-card" data-categoria="tortas">
-                        <img src="img/torta.jpg" alt="Torta de limão" loading="lazy">
-                        <div class="produto-info">
-                            <h4>Torta de Limão</h4>
-                            <p>Base crocante com creme cítrico.</p>
-                            <div class="preco">R$ 85,00</div>
-                            <button class="btn-add" onclick="abrirModalFatia()">
-                                Escolher Sabor
-                            </button>
-                        </div>
-                    </article>
+                    <<!-- TORTA -->
+                        <article class="produto-card" data-categoria="tortas">
+                            <img src="img/torta.jpg" alt="Torta artesanal" loading="lazy">
+                            <div class="produto-info">
+                                <h4>Torta Personalizada</h4>
+                                <p>Escolha tamanho, base e recheio.</p>
+                                <button class="btn-add btn-torta" onclick="abrirModalTorta()">
+                                    Montar Torta
+                                </button>
+                            </div>
+                        </article>
 
-                    <!-- FATIA -->
-                    <article class="produto-card" data-categoria="fatias">
-                        <img src="img/fatia.jpg" alt="Fatia Gourmet" loading="lazy">
-                        <div class="produto-info">
-                            <h4>Fatia Gourmet</h4>
-                            <p>220g a 250g • Diversos sabores</p>
-                            <div class="preco">R$ 12,00</div>
-                            <button class="btn-add" onclick="abrirModalFatia()">
-                                Escolher Sabor
-                            </button>
-                        </div>
-                    </article>
+                        <!-- FATIA -->
+                        <article class="produto-card" data-categoria="fatias">
+                            <img src="img/fatia.jpg" alt="Fatia Gourmet" loading="lazy">
+                            <div class="produto-info">
+                                <h4>Fatia Gourmet</h4>
+                                <p>220g a 250g • Diversos sabores</p>
+                                <div class="preco">R$ 12,00</div>
+                                <button class="btn-add" onclick="abrirModalFatia()">
+                                    Escolher Sabor
+                                </button>
+                            </div>
+                        </article>
 
                 </div>
             </div>
@@ -278,57 +277,57 @@
         </div>
     </div>
 
-<!-- ================= MODAL TORTA ================= -->
-<div class="modal-overlay" id="modalTortaOverlay" onclick="fecharModalTorta()"></div>
+    <!-- ================= MODAL TORTA ================= -->
+    <div class="modal-overlay" id="modalTortaOverlay" onclick="fecharModalTorta()"></div>
 
-<div class="modal-bolo" id="modalTorta">
-    <div class="modal-header">
-        <h3>Monte sua Torta</h3>
-        <button class="fechar-btn" onclick="fecharModalTorta()">✕</button>
+    <div class="modal-bolo" id="modalTorta">
+        <div class="modal-header">
+            <h3>Monte sua Torta</h3>
+            <button class="fechar-btn" onclick="fecharModalTorta()">✕</button>
+        </div>
+
+        <div class="modal-body">
+
+            <label>Tamanho:</label>
+            <select id="selectTamanhoTorta">
+                <option value="" disabled selected>Escolha o tamanho</option>
+                <option value="Fatia" data-preco="17">Fatia - R$17,00</option>
+                <option value="Inteira" data-preco="170">Inteira - R$170,00</option>
+            </select>
+
+            <label>Base:</label>
+            <select id="selectBaseTorta">
+                <option value="" disabled selected>Escolha a base</option>
+                <option>Branco</option>
+                <option>Chocolate</option>
+                <option>Oreo</option>
+                <option>Negresco</option>
+            </select>
+
+            <label>Recheio:</label>
+            <select id="selectRecheioTorta">
+                <option value="" disabled selected>Escolha o recheio</option>
+                <option>Torta de limão</option>
+                <option>Chocolate c/ maracujá</option>
+                <option>Banoffe</option>
+                <option>Ninho c/ uva</option>
+                <option>Ninho c/ morango</option>
+                <option>Torta holandesa</option>
+                <option>Bombom de morango</option>
+                <option>Ninho c/ Nutella</option>
+                <option>Torta Oreo</option>
+                <option>Choco Oreo</option>
+                <option>Doce de leite crocante</option>
+            </select>
+
+        </div>
+
+        <div class="modal-footer">
+            <button id="confirmarTorta" class="btn-primary">
+                Adicionar ao Carrinho
+            </button>
+        </div>
     </div>
-
-    <div class="modal-body">
-
-        <label>Tamanho:</label>
-        <select id="selectTamanhoTorta">
-            <option value="" disabled selected>Escolha o tamanho</option>
-            <option value="Fatia" data-preco="17">Fatia - R$17,00</option>
-            <option value="Inteira" data-preco="170">Inteira - R$170,00</option>
-        </select>
-
-        <label>Base:</label>
-        <select id="selectBaseTorta">
-            <option value="" disabled selected>Escolha a base</option>
-            <option>Branco</option>
-            <option>Chocolate</option>
-            <option>Oreo</option>
-            <option>Negresco</option>
-        </select>
-
-        <label>Recheio:</label>
-        <select id="selectRecheioTorta">
-            <option value="" disabled selected>Escolha o recheio</option>
-            <option>Torta de limão</option>
-            <option>Chocolate c/ maracujá</option>
-            <option>Banoffe</option>
-            <option>Ninho c/ uva</option>
-            <option>Ninho c/ morango</option>
-            <option>Torta holandesa</option>
-            <option>Bombom de morango</option>
-            <option>Ninho c/ Nutella</option>
-            <option>Torta Oreo</option>
-            <option>Choco Oreo</option>
-            <option>Doce de leite crocante</option>
-        </select>
-
-    </div>
-
-    <div class="modal-footer">
-        <button id="confirmarTorta" class="btn-primary">
-            Adicionar ao Carrinho
-        </button>
-    </div>
-</div>
 
     <script src="script.js"></script>
 
