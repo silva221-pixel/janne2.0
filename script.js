@@ -158,18 +158,27 @@ document.querySelectorAll(".btn-add").forEach(botao => {
   botao.addEventListener("click", () => {
 
     const card = botao.closest(".produto-card");
-    const nome = card.querySelector("h4").textContent;
-    const precoTexto = card.querySelector(".preco").textContent;
+    const nomeBase = card.querySelector("h4").textContent;
 
-    const preco = parseFloat(
-      precoTexto
-        .replace("A partir de ", "")
-        .replace("R$", "")
-        .replace(",", ".")
-        .trim()
-    );
+    const select = card.querySelector(".select-tamanho");
 
-    adicionarAoCarrinho(nome, preco);
+    let nomeFinal = nomeBase;
+    let precoFinal;
+
+    if (select) {
+      const optionSelecionada = select.options[select.selectedIndex];
+      const tamanho = optionSelecionada.value;
+      precoFinal = parseFloat(optionSelecionada.dataset.preco);
+
+      nomeFinal = `${nomeBase} - ${tamanho}kg`;
+    } else {
+      const precoTexto = card.querySelector(".preco").textContent;
+      precoFinal = parseFloat(
+        precoTexto.replace("R$", "").replace(",", ".").trim()
+      );
+    }
+
+    adicionarAoCarrinho(nomeFinal, precoFinal);
 
   });
 
