@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camadas da Janne | Bolos Artesanais</title>
+    <meta name="description" content="Bolos artesanais sob encomenda em Goiânia. Peça pelo WhatsApp.">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <header>
+        <div class="container nav">
+            <h1 class="logo">Camadas da Janne</h1>
+            <nav>
+                <a href="#sobre">Sobre</a>
+                <a href="#cardapio">Cardápio</a>
+                <a href="#depoimentos">Depoimentos</a>
+                <a href="#contato">Contato</a>
+            </nav>
+
+            <button class="btn-carrinho" onclick="abrirCarrinho()">
+                🛒 <span id="contador-carrinho">0</span>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h2>Arte em camadas. Sabor que transforma momentos.</h2>
+            <p>Confeitaria artesanal sob encomenda em Goiânia.</p>
+            <a href="#" class="btn-primary">Fazer pedido no WhatsApp</a>
+            <p>Produção limitada por dia</p>
+        </div>
+    </section>
+
+    <section id="sobre" class="sobre container">
+        <h2>Sobre nós</h2>
+        <p>
+            Nossos recheios são todos cozidos, preparados um a um, respeitando
+            o ponto ceerto, a textura perfeita e o sabor que abraça. Usamos produtos
+            selecionados, leites cremosos, chocolates escolhidos a dedo e ingredientes
+            que fazem diferença de verdade. Nada de misturas prontas: é feito à mão,
+            no fogão, com carinho e técnica, como manda a confeitaria de verdade..
+        </p>
+    </section>
+
+    <section id="cardapio" class="cardapio">
+
+        <div class="container">
+            <h2>Nosso Cardápio</h2>
+
+            <!-- BOTÕES DE FILTRO -->
+            <div class="filtros">
+                <button class="filtro-btn active" data-categoria="bolos">Bolos</button>
+                <button class="filtro-btn" data-categoria="tortas">Tortas</button>
+                <button class="filtro-btn" data-categoria="doces">Doces</button>
+            </div>
+
+            <!-- GRID DE PRODUTOS -->
+            <div class="grid-produtos">
+
+                <!-- BOLOS -->
+                <div class="produto-card" data-categoria="bolos">
+                    <img src="img/chocolate.jpg" alt="Bolo de Chocolate">
+                    <div class="produto-info">
+                        <h4>Bolo de Chocolate</h4>
+                        <p>Massa intensa com cobertura cremosa.</p>
+                        <div class="preco">A partir de R$18,50</div>
+                        <button class="btn-add">Adicionar</button>
+                    </div>
+                </div>
+
+                <div class="produto-card" data-categoria="bolos">
+                    <img src="img/red.jpg" alt="Red Velvet">
+                    <div class="produto-info">
+                        <h4>Red Velvet</h4>
+                        <p>Massa aveludada com creme delicado.</p>
+                        <div class="preco">A partir de R$20,90</div>
+                        <button class="btn-add">Adicionar</button>
+                    </div>
+                </div>
+
+                <!-- TORTAS -->
+                <div class="produto-card" data-categoria="tortas">
+                    <img src="img/torta.jpg" alt="Torta de Limão">
+                    <div class="produto-info">
+                        <h4>Torta de Limão</h4>
+                        <p>Base crocante com creme cítrico.</p>
+                        <div class="preco">R$85,00</div>
+                        <button class="btn-add">Adicionar</button>
+                    </div>
+                </div>
+
+                <div class="produto-card" data-categoria="tortas">
+                    <img src="img/torta.jpg" alt="Torta de Morango">
+                    <div class="produto-info">
+                        <h4>Torta de Morango</h4>
+                        <p>Creme leve com frutas frescas.</p>
+                        <div class="preco">R$95,00</div>
+                        <button class="btn-add">Adicionar</button>
+                    </div>
+                </div>
+
+                <!-- DOCES -->
+                <div class="produto-card" data-categoria="doces">
+                    <img src="img/brigadeiro.jpg" alt="Brigadeiro Gourmet">
+                    <div class="produto-info">
+                        <h4>Brigadeiro Gourmet</h4>
+                        <p>Chocolate belga 70% cacau.</p>
+                        <div class="preco">R$6,00</div>
+                        <button class="btn-add">Adicionar</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <section id="depoimentos" class="depoimentos">
+                <div class="container">
+                    <h2>O que nossos clientes dizem</h2>
+
+                    <div class="grid-depoimentos">
+                        <div class="depoimento">
+                            <p>“Simplesmente perfeito! O melhor bolo que já encomendei.”</p>
+                            <strong>★★★★★</strong>
+                        </div>
+
+                        <div class="depoimento">
+                            <p>“Entrega no prazo e sabor incrível.”</p>
+                            <strong>★★★★★</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cta-final">
+                <div class="container">
+                    <h2>Pronta para adoçar seu momento?</h2>
+                    <a href="#" class="btn-primary">Fazer pedido agora</a>
+                </div>
+            </section>
+
+            <footer id="contato">
+                <div class="container">
+                    <p>Camadas da Janne</p>
+                    <p>📍 Goiânia</p>
+                    <p>📱 WhatsApp</p>
+                    <p>© 2026 | Desenvolvido por Arthur Silva</p>
+                </div>
+            </footer>
+
+            <div class="carrinho-overlay" onclick="fecharCarrinho()"></div>
+
+            <div class="carrinho-lateral">
+                <div class="carrinho-header">
+                    <h3>Seu Pedido</h3>
+                    <button class="fechar-btn" onclick="fecharCarrinho()">✕</button>
+                </div>
+
+                <div class="carrinho-itens"></div>
+
+                <div class="carrinho-footer">
+                    <div class="total-box">
+                        <span>Total</span>
+                        <strong id="total-carrinho">R$ 0,00</strong>
+                    </div>
+
+                    <button class="btn-finalizar">
+                        Finalizar no WhatsApp
+                    </button>
+                </div>
+            </div>
+            <script src="script.js"></script>
+</body>
+
+</html>
